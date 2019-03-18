@@ -1,4 +1,18 @@
+// API Key
+let config = {
+    apiKey: "AIzaSyD68BR2kGbbAISPGwTxEl0PbCUswOPMTfs",
+    authDomain: "trainschedule-9abdd.firebaseapp.com",
+    databaseURL: "https://trainschedule-9abdd.firebaseio.com",
+    projectId: "trainschedule-9abdd",
+    storageBucket: "trainschedule-9abdd.appspot.com",
+    messagingSenderId: "463843877657"
+  };
+  firebase.initializeApp(config);
 
+let database = firebase.database();
+//===========================
+
+//Global Variables
 let tFrequency = 3;
 let firstTime = "04:00";
 
@@ -20,19 +34,7 @@ console.log('MINUTES TILL TRAIN: ' + tETA);
 
 let nextTrain = moment().add(tETA, 'minutes');
 console.log("Arrival Time: " + moment(nextTrain).format('hh:mm'));
-
-let config = {
-    apiKey: "AIzaSyD68BR2kGbbAISPGwTxEl0PbCUswOPMTfs",
-    authDomain: "trainschedule-9abdd.firebaseapp.com",
-    databaseURL: "https://trainschedule-9abdd.firebaseio.com",
-    projectId: "trainschedule-9abdd",
-    storageBucket: "trainschedule-9abdd.appspot.com",
-    messagingSenderId: "463843877657"
-  };
-  firebase.initializeApp(config);
-
-let database = firebase.database();
-
+// button listner 
 $("#add-train-btn").click(function(event){
     event.preventDefault();
 
@@ -48,8 +50,6 @@ $("#add-train-btn").click(function(event){
         frequency: tArrival
     };
     
-    database.ref().push(newTrain);
-
     $('#train-name-input').val('');
     $('#destination-input').val('');
     $('#tFirst').val('');
@@ -60,6 +60,29 @@ $("#add-train-btn").click(function(event){
     console.log(newTrain.firstTrainTime);
     console.log(newTrain.frequency);
   
-    $("#train-table > tbody").append("<tr><td>" + train-name-input + "</tr><td>" + destination-input + "</td><td>" + frequency-input + "</td><td>" + arrival-input + "</td><td>");
+    let trainObj = {
+        name, destination, frequency, nextTrain, minutesRemaining,
+    };
 
+    database.ref().push(trainObj);
+});
+
+database.ref().on('value', function(snapshot){
+    let train = snapshot.val();
+
+    for(const key in train){
+        let {name, dest, frequency, nextTrain, minutesRemaining} = train[i];
+        let tableRow = $('<tr>');
+
+        let tdName = $("<tb>").text(name);
+        let tdDest = $("<tb>").text(rate);
+        let tdFreq = $("<tb>").text(date);
+        let tdNextTrain = $("<tb>").text(role);
+        let minutesRemaining = moment(date).diff(moment)
+        tableRow.append(tdName, tdDest, tdFreq, tdNextTrain, tdminutesRemaining);
+
+        $('tdbody.').append(tableRow);
+
+    }
 })
+    
