@@ -22,17 +22,18 @@ let nextTrain = moment().add(tETA, 'minutes');
 console.log("Arrival Time: " + moment(nextTrain).format('hh:mm'));
 
 let config = {
-    apiKey: "AIzaSyA_QypGPkcjPtylRDscf7-HQl8ribnFeIs",
-    authDomain: "time-sheet-55009.firebaseapp.com",
-    databaseURL: "https://time-sheet-55009.firebaseio.com",
-    storageBucket: "time-sheet-55009.appspot.com"
-};
-  
-firebase.initializeApp(config);
+    apiKey: "AIzaSyD68BR2kGbbAISPGwTxEl0PbCUswOPMTfs",
+    authDomain: "trainschedule-9abdd.firebaseapp.com",
+    databaseURL: "https://trainschedule-9abdd.firebaseio.com",
+    projectId: "trainschedule-9abdd",
+    storageBucket: "trainschedule-9abdd.appspot.com",
+    messagingSenderId: "463843877657"
+  };
+  firebase.initializeApp(config);
 
-var database = firebase.database();
+let database = firebase.database();
 
-$("#add-employee-btn").click(function(event){
+$("#add-train-btn").click(function(event){
     event.preventDefault();
 
     let tName = $('#train-name-input').val().trim();
@@ -49,10 +50,16 @@ $("#add-employee-btn").click(function(event){
     
     database.ref().push(newTrain);
 
+    $('#train-name-input').val('');
+    $('#destination-input').val('');
+    $('#tFirst').val('');
+    $('#tArrival').val('');
+
     console.log(newTrain.name);
     console.log(newTrain.destination);
     console.log(newTrain.firstTrainTime);
     console.log(newTrain.frequency);
   
+    $("#train-table > tbody").append("<tr><td>" + train-name-input + "</tr><td>" + destination-input + "</td><td>" + frequency-input + "</td><td>" + arrival-input + "</td><td>");
 
 })
